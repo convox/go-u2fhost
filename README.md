@@ -158,3 +158,7 @@ Linux packages, therefore, should be built with `-tags=hidraw`.
 Mostly because I wasn't sure what a good high level API would look like, and opted to provide a more general purpose low level API.
 
 That said, in the future I may add a high level API similar to the Javascript U2F API.
+
+# This fork
+
+In order to use this lib with the WebAuthn API, we had to change how it encodes the `SignatureData` and `AuthenticatorData` to use the web safe encode.

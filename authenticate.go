@@ -62,12 +62,13 @@ func (dev *HidDevice) Authenticate(req *AuthenticateRequest) (*AuthenticateRespo
 
 func authenticateResponse(status uint16, response, clientData []byte, req *AuthenticateRequest) *AuthenticateResponse {
 	authenticatorData := append(sha256([]byte(req.AppId)), response[0:5]...)
+
 	if req.WebAuthn {
 		return &AuthenticateResponse{
 			KeyHandle:         req.KeyHandle,
 			ClientData:        websafeEncode(clientData),
-			SignatureData:     base64.StdEncoding.EncodeToString(response[5:]),
-			AuthenticatorData: base64.StdEncoding.EncodeToString(authenticatorData),
+			SignatureData:     websafeEncode(response[5:]),
+			AuthenticatorData: websafeEncode(authenticatorData),
 		}
 	} else {
 		return &AuthenticateResponse{
